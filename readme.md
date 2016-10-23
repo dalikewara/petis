@@ -1,123 +1,243 @@
+[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/dalikewara/petis/license.txt)
+
 # Introduction
 
-Petis is an alternate way to working DOM in JavaScript that come with ease. But actually you will not only get about DOM, Petis can used by some cases in development.
+Petis is an alternative way for you to working with DOM in JavaScript. But actually, and for further, you'll not only get about DOM. Petis can be used in some cases in developing. If you're familiar with JavaScript library like jQuery, Gator, and others, you'll get easy while trying to understanding Petis, because it also similliar with that other JavaScript libraries. Let's we explain to you what's Petis can do: (Read the documentation).
 
-### How To Install
+### Log notes (0.0.1 Z Rev3)
+
+- Rewritten Petis's script style.
+
+- Rewritten Petis's syntax feature.
+
+### How to install
 
 - Download Petis first.
 
-- Link petis.js / petis.min.js to your HTML tag script:
+- Link petis.js / petis.min.js into your HTML tag script:
 
-      <script src="petis.min.js"></script>
+  ```html
+  <script src="/link/to/your/petis.min.js"></script>
+  ```
 
-- Now you can use Petis by calling global Petis().
+- And, now you can start using Petis.
 
-      var app = new Petis();
+        Petis() or petis()
 
-  We always recommend to store Petis() as a variable, because after Petis was declared, it's global scope will be deleted.
+### Documentation
 
-- Console.log the variable to see the object and all of Petis can do.
+- #### Document ready.
+  To use `document ready` in Petis, just do this:
 
-### Features (0.0.1 Z Rev 2)
+  ```javascript
+  Petis(function()
+  {
+      // Everything you want to do is here...
+  });
+  ```
 
-- Getting DOM elements:
+  By using that, your script will be executed when the page or document has get ready with it's contents.
 
-      app.get.element('#myId');
+- #### Getting element.
 
-  you can parse array into parameter to get multiple elements:
+  ```javascript
+  Petis(selector).get;
+  ```
 
-      app.get.element(['#myFirstId', '.myClass', '#mySecondId']);
+  `selector` can be:
 
-  This is more get.element references:
-  * '#myId' to get element by id.
-  * '.myClass' to get elements by class name.
-  * '@myName' to get elements by name.
-  * 'tagName' to get elements by tag name.
-  * '.myClass::1' to get elements by class name with number of index is 1. This syntax '::Number' can be used to all selectors.
-
-
-- Getting uri:
-
-      app.get.uri();
-
-  You can parse actions into parameters:
-
-      app.get.uri({split: '/'});
-
-      or
-
-      app.get.uri({
-          replace: ['http://', 'www'],
-          split: '.com'
-      });
-
-  This is more get.uri action references:
-  * replace: [value, to] (string)
-  * split: value (array)
-  * check: value (true|false)
+  - `#myId` to get by id.
+  - `.myClass` to get by class name.
+  - `div` to get by tag name.
+  - `my-name` to get by name.
 
 
-- Creating DOM element:
+- #### Getting element value.
 
-      app.create.element('div');
+  ```javascript
+  Petis(elem).val;
+  ```
 
-  You can create element with parsing content and some attributes:
-
-      app.create.element('div', {
-          id: 'myId',
-          class: 'myClass',
-          content: '<p>This is content</p>',
-          style: {
-              background: 'blue',
-              margin: 0
-          }
-      });
-
-      // equivalen to
-      <div id="myId" class="myClass" style="background: blue; margin: 0">
-          <p>This is content</p>
-      </div>
-
-  You can also parse array into parameters to create multiple elements and attributes:
-
-      app.create.element(arrayTag, arrayAttribute);
-
-      or
-
-      app.create.element(arrayTag, attribute);
+  - `elem` can be document element or selector.
 
 
-- Setting DOM attribute:
+- #### Creating element.
 
-      var elem = app.get.element('#myId');
+  ```javascript
+  Petis().create(tagName, attribute);
+  ```
 
-      app.set.attribute(elem, {
-          id: 'myId',
-          class: 'myClass',
-          style: {
-              background: 'blue',
-              margin: 0
-          }
-      });
+  You can set attributes through into created element. Example:
 
-      or
+  ```javascript
+  Petis().create('div', {
+      id: 'myId',
+      class: 'myClass',
+      style: {
+          background: 'blue',
+          margin: '0',
+      }
+  });
+  ```
 
-      app.set.attribute('#myId', {
-          id: 'myId',
-          class: 'myClass',
-          style: {
-              background: 'blue',
-              margin: 0
-          }
-      });
+  - `tagName` is a tag name.
+  - `attribute` can be null(unset) or object.
 
-  You can also parse array into parameters to set multiple elements and attributes:
 
-      app.set.attribute(arrayElement, arrayAttribute);
+- #### Getting element attribute.
 
-      or
+  ```javascript
+  Petis(elem).attr(attibute);
+  ```
 
-      app.set.attribute(arrayElement, attribute);
+  - `elem` can be document element or selector.
+  - `attribute` is an attribute name.
+
+
+- #### About event.
+  Petis only implementing one syntax or method for event handler, and that is `on`. Not like jQuery that you can use,
+
+  ```javascript
+  $(selector).click(handler);
+  ```
+
+  Petis doesn't implements that. The one only supported is the method just like `on` in jQuery or Gator, like this:
+
+  ```javascript
+  Petis(elem).on(event, handler, useCapture);
+  ```
+
+  - `elem` can be document element or selector.
+  - `event` must be document events such as `click`, `mouseover`, `mouseenter`, etc.
+  - `handler` can be a function or callback.
+  - `useCapture` can be null(unset), true, or false.
+
+
+- #### Doing AJAX.
+  In Petis, AJAX can be done by passing object into `Petis function's` parameter with `ajax: true`.
+
+  ```javascript
+  Petis(
+  {
+      ajax: true,
+      url: url,
+      method: method,
+      data: data,
+      complete: handler,
+      error: handler,
+  });
+  ```
+
+  - `handler` can be a null(unset), function, or callback.
+
+
+- #### Getting form data.
+  You can simply getting form data by using this:
+
+  ```javascript
+  Petis(form).getFormData();
+  ```
+
+  That is similliar (but not same) to `serialize()` in jQuery.
+
+  - `form` can be document(form) element or form selector.
+
+
+- #### Load element.
+  Basically, loading an element from external source is using AJAX and simple `innerHTML` method.
+  Petis also implements this technique, but the AJAX was created automatically by system. You just need to
+  specify parent element and the source url.
+
+  ```javascript
+  Petis(elem).load(url, handler);
+  ```
+
+  - `elem` can be document element or selector.
+  - `handler` can be a null(unset), function, or callback.
+
+
+- #### Inserting element.
+  There are two options to insert an element inside an element in Petis.
+
+  ```javascript
+  Petis(elem).append(elem2);
+  Petis(elem).inner(elem2);
+  ```
+
+  - `elem` can be document element or selector.
+
+
+- #### Styling.
+  You can directly style element with Petis by using this:
+
+  ```javascript
+  Petis(elem).style(
+  {
+      background: 'blue',
+      margin: '0',
+      // ...
+  });
+  ```
+
+   But, not all CSS attributes can be passed. We'll fix this as soon as possible.
+
+  - `elem` can be document element or selector.
+
+
+- #### Effects.
+  Petis provides some effects that you can use.
+
+  ```javascript
+  Petis(elem).hide();
+  Petis(elem).show();
+  ```
+
+  - `elem` can be document element or selector.
+
+
+- #### Creating dropdown.
+  With Petis, creating a simple dropdown can be done easily. Here's the example:
+
+  ```javascript
+  Petis(elem).dropDown(
+  {
+      event: event,
+      toShowed: target,
+  });
+  ```
+
+  The example explains, when the event triggers on `elem`, then the target element will be showed.
+
+  - `elem` and `target` can be document element or selector.
+  - `event` must be document events such as `click`, `mouseover`, `mouseenter`, etc.
+
+
+- #### Data encoding.
+
+  ```javascript
+  Petis({encode: data});
+  ```
+
+  - `data` must be a string;
+
+
+- #### Petis debug mode.
+  Debug mode is `off` by default. You can turn it on with:
+
+  ```javascript
+  Petis({debug: 'on'});
+  ```
+
+  When you using debug mode, you will see more custom log message if you do wrong while working with Petis.
+  But, don't forget to turn off this when you have finished.
+
+
+- #### Clean all Petis global variables.
+  Petis store it function on window object. If you access `Petis()`, you actually just access `window.Petis()`. You can delete this global variable after you are done with Petis.
+
+  ```javascript
+  Petis({clean: true});
+  ```
 
 
 ### Author
@@ -126,4 +246,4 @@ Petis is an alternate way to working DOM in JavaScript that come with ease. But 
 
 ### License
 
-[Petis](https://dalikewara.com/project/petis) is an open-sourced JavaScript library/object licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[Petis](https://dalikewara.com/project/petis) is an open-sourced JavaScript library licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -1,4 +1,4 @@
-Petis: Play the DOM with JavaScript
+Petis: A JavaScript library that designed for (not only) working with DOM.
 -------------------------------------------------------------------------------
 
 The MIT License (MIT)
