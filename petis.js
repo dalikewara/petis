@@ -888,7 +888,7 @@
 		var a = 0;
 		var len = elem.length;
 
-		if(!selector)
+		if(_isUndefined(selector))
 		{
 			for( ; a < len; a++)
 	        {
@@ -899,8 +899,8 @@
 					PETIS.list.form.specialAttr.indexOf(elem[a].type) < 0)
 					&& (elem[a].hasAttribute('checked') || elem[a].hasAttribute('selected'))))
 	                {
-	                    PETIS.str += PETIS.encode(elem[a].name) + '=' +
-							PETIS.encode(elem[a].value) + '&';
+	                    PETIS.str += PETIS.encode(elem[a].name, 'standart') + '=' +
+							PETIS.encode(elem[a].value, 'standart') + '&';
 	                }
 	            }
 	        }
