@@ -637,7 +637,11 @@
 					: elem[_getRealAttr(attr)];
 			}
 
-			elem[_getRealAttr(attr)] = setVal;
+			// If user want to set value to attribute. We check for setAttribute() browsers support
+			// first. If the browser doesn't has support for it, to set value into attribute, we use
+			// manually with array index.
+			Element.prototype.setAttribute ? elem.setAttribute(_getRealAttr(attr), setVal)
+			   : (elem[_getRealAttr(attr)] = setVal);
 		};
 
 		// Loops for element if comes with HTMLCollection.
