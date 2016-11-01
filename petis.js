@@ -31,7 +31,7 @@
 		/**
 		 * @var   mixed   this.val
 		 */
-		this.val = !_isset(doc) ? null : doc.value;
+		this.val = (!_isset(doc) || _isNull(doc)) ? document : doc.value;
 
 		/**
 		 * @var   string   this.version
@@ -618,6 +618,13 @@
 	 */
 	function attributes(elem, attr, setVal, target)
 	{
+		// Checking fo elem.
+		// If elem is null, we die program and return it false directly.
+		if(_isNull(elem))
+		{
+			return false;
+		}
+
 		// Change or set elem as target if the target is not false.
 		if(!_isUndefined(target))
 		{
@@ -678,6 +685,13 @@
 	 */
 	function styles(elem, properties, target)
 	{
+		// Checking fo elem.
+		// If elem is null, we die program and return it false directly.
+		if(_isNull(elem))
+		{
+			return false;
+		}
+
 		// Return errors on unwanted conditions.
 		if(!_isObject(properties))
 		{
@@ -733,6 +747,13 @@
 	*/
 	function add(elem, name, element)
 	{
+		// Checking fo elem.
+		// If elem is null, we die program and return it false directly.
+		if(_isNull(elem))
+		{
+			return false;
+		}
+
 		// Initialize call object to handle all main functions.
 		// This object variable will contains specified functions or methods.
 		var call = {};
@@ -763,6 +784,13 @@
 	*/
 	function effects(elem, name, target)
 	{
+		// Checking fo elem.
+		// If elem is null, we die program and return it false directly.
+		if(_isNull(elem))
+		{
+			return false;
+		}
+
 		// Initialize call object to handle all main functions.
 		// This object variable will contains specified functions or methods.
 		var call = {};
@@ -800,6 +828,13 @@
 	*/
 	function features(elem, name, obj)
 	{
+		// Checking fo elem.
+		// If elem is null, we die program and return it false directly.
+		if(_isNull(elem))
+		{
+			return false;
+		}
+
 		// Initialize call object to handle all main functions.
 		// This object variable will contains specified functions or methods.
 		var call = {};
@@ -843,6 +878,13 @@
 	*/
 	function validation(elem, obj)
 	{
+		// Checking fo elem.
+		// If elem is null, we die program and return it false directly.
+		if(_isNull(elem))
+		{
+			return false;
+		}
+
 		// When user using validation, the name method must be defined.
 		if(!_isset(obj.name))
 		{
@@ -889,6 +931,14 @@
 	 */
 	function formData(elem, selector)
 	{
+		// Checking fo elem.
+		// If elem is null, we die program and return it false directly.
+		if(_isNull(elem))
+		{
+			return false;
+		}
+
+		// Prepared variables
 		var a = 0;
 		var len = elem.length;
 
