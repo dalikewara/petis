@@ -71,6 +71,16 @@
 		};
 
 		/**
+		 * @param     string        add
+		 * @param     string|bool   change
+		 * @return    mixed
+		 */
+		this.class = function(add, change)
+		{
+			classes(doc, add, change);
+		}
+
+		/**
 		 * @param     string          url
 		 * @param     null|function   callback
 		 * @return    mixed
@@ -640,14 +650,14 @@
 			{
 				// Checking browser compatibility for getAttribute(works on most browsers).
 				// Use method 'elem[index]' if browser doesn't support for getAttribute.
-				return Element.prototype.getAttribute ? elem.getAttribute(_getRealAttr(attr))
+				return Element.prototype.getAttribute ? elem.getAttribute(attr)
 					: elem[_getRealAttr(attr)];
 			}
 
 			// If user want to set value to attribute. We check for setAttribute() browsers support
 			// first. If the browser doesn't has support for it, to set value into attribute, we use
 			// manually with array index.
-			Element.prototype.setAttribute ? elem.setAttribute(_getRealAttr(attr), setVal)
+			Element.prototype.setAttribute ? elem.setAttribute(attr, setVal)
 			   : (elem[_getRealAttr(attr)] = setVal);
 		};
 
@@ -671,6 +681,77 @@
 			return run(elem);
 		}
 	};
+
+	/**
+	 * This method will manipulating class of document element.
+	 * There are some actions you can use (change class, remove class,
+	 * add class, and toggle class).
+	 *
+	 * @param     document element   elem
+	 * @param     string             add
+	 * @param     string|bool        change
+	 * @return    mixed
+	 */
+	function classes(elem, add, change)
+	{
+		// Checking fo elem.
+		// If elem is null, we die program and return it false directly.
+		if(_isNull(elem))
+		{
+			return false;
+		}
+
+		// If 'change' is undefined or bool(false), then we add new class.
+		if(_isUndefined(change) || _isBoolean(change) && change === false)
+		{
+			// Checking for classList method compatibility.
+			if(document.documentElement.classList)
+			{
+				elem.classList.add(add);
+			}
+			else
+			{
+				// Add class using traditional syntax.
+				elem.className += ' ' + add;
+			}
+		}
+		else
+		{
+			// Checking for classList method compatibility.
+			if(document.documentElement.classList)
+			{
+				// If 'change' is bool(true), then we toggle it.
+				// Otherwise it will be replaced with new value.
+				if(_isBoolean(change) && change === true)
+				{
+					elem.classList.toggle(add);
+				}
+				else
+				{
+					// To replace class using classList method, first we remove it,
+					// and then we create new one.
+					elem.classList.remove(add);
+
+					// But, if 'change' is empty, the class will be removed.
+					if(change !== '' && change !== ' ')
+					{
+						elem.classList.add(change);
+					}
+				}
+			}
+			else
+			{
+				// Generating class value for traditional use.
+				var value = Element.prototype.getAttribute ? elem.getAttribute(
+					'class').replace(add, '').replace(/\s+/g, ' ') : elem[_getRealAttr('class')].replace(
+					add, '').replace(/\s+/g, ' ');
+
+				// If 'change' is bool(true), then we toggle it using traditional syntax, otherwise
+				// it will be replaced with the new value.
+				elem.className = (_isBoolean(change) && change === true) ? value : value + ' ' + add;
+			}
+		}
+	}
 
 	/**
 	 * If you want to styling elements using JavaScript, you can use this function/method.
